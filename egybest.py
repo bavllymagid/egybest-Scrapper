@@ -43,7 +43,8 @@ movies = driver.find_elements_by_xpath('//*[@id="movies"]/a/span')
 for movie in movies :
     if input_search.lower() in movie.text.lower():
         movie.click()
-        movieFound = 1 
+        movieFound = 1
+        title = movie.text
         break
 
 if movieFound == 0 :
@@ -53,7 +54,7 @@ if movieFound == 0 :
     os.startfile(sys.argv[0])
     sys.exit()
     
-
+time.sleep(1)
 
 
 #switching to the popup url 
@@ -100,17 +101,19 @@ driver.switch_to.window(down_parent)
 
 #click download two times 
 
-time.sleep(1)
+time.sleep(3)
 driver.find_element_by_xpath('/html/body/div[1]/div/p/a[1]/i').click() 
 #switching to the popup url 
 for handle in driver.window_handles: 
     if handle != parent_h: 
         login_page = handle 
+time.sleep(3)
 driver.switch_to_window(login_page) 
 driver.close()
 driver.switch_to_window(down_parent) 
-time.sleep(1)
+time.sleep(3)
 
-#getting download link 
-a= driver.find_element_by_xpath('/html/body/div[1]/div/p/a[1]').get_attribute('href')
-print(a)
+#getting download link
+movieUrl = driver.find_element_by_xpath('/html/body/div[1]/div/p/a[1]').get_attribute('href')
+driver.quit()
+driverConfig.download(movieUrl, title + '.mp4')
