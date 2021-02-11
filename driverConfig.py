@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import requests, warnings
 from tqdm import tqdm
+import requests
 
 def get_web_driver_options():
     return webdriver.ChromeOptions()
@@ -48,4 +49,12 @@ def quality(argument):
 def open_browser(options):
     driver = webdriver.Chrome("chromedriver.exe", options=options)
     return driver
+
+def check_internet(url):
+    timeout=5
+    try:
+        _ = requests.get(url, timeout=timeout)
+        return True
+    except requests.ConnectionError:
+        return False
 

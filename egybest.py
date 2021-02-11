@@ -9,8 +9,16 @@ import requests
 
 # input from user 
 input_search = input("movie: ")
+URL = "https://cola.egybest.guru/explore/?q="+input_search+""
 
 print("\n=========Searching for movie===========")
+
+#checking the internet connection
+if driverConfig.check_internet(URL) == False :
+    print("\n======= please check your internet connection ======\n")
+    time.sleep(7)
+    sys.exit()
+    
 
 #running the browser in the back ground 
 options = driverConfig.get_web_driver_options()
@@ -23,7 +31,7 @@ driverConfig.disable_python_warnings()
 
 #identifying the driver 
 driver = driverConfig.open_browser(options)
-driver.get("https://cola.egybest.guru/explore/?q="+input_search+"")
+driver.get(URL)
  
 
 #saving the current page 
