@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import requests
+import requests, warnings
 from tqdm import tqdm
 
 def get_web_driver_options():
@@ -14,6 +14,12 @@ def set_ignore_certificate_error(options):
 
 def set_browser_as_incognito(options):
     options.add_argument('--incognito')   
+
+def hide_browser_massages(options):
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])  
+
+def disable_python_warnings():
+    warnings.filterwarnings("ignore")     
 
 def download(url, fname):
     resp = requests.get(url, stream=True)
@@ -40,4 +46,6 @@ def quality(argument):
     return switcher.get(argument, "invalid quality")    
 
 def open_browser(options):
-    return  webdriver.Chrome(options=options)
+    driver = webdriver.Chrome("chromedriver.exe", options=options)
+    return driver
+
