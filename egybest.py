@@ -37,25 +37,21 @@ driver.get(URL)
 #saving the current page 
 parent_h = driver.current_window_handle
 
-movieFound = 0
-movies = driver.find_elements_by_xpath('//*[@id="movies"]/a/span')
+movies =driver.find_elements_by_xpath('//*[@id="movies"]/a')
+number_of_movies = len(driver.find_elements_by_xpath('//*[@id="movies"]/a')) 
+
 #searching algorithm 
-for movie in movies :
-    if input_search.lower() in movie.text.lower():
-        movie.click()
-        movieFound = 1
-        title = movie.text
-        break
+print("\n\n===========Available movies============\n")
+for num in range(1,12) :
+    movies = driver.find_element_by_xpath('//*[@id="movies"]/a['+str(num)+']/span[2]')
+    if input_search.lower() in movies.text.lower():
+        print(" "+str(num)+" : "+movies.text)
+#getting movie page 
+movie_code = input("Enter movie code : ")
+selected_move = driver.find_element_by_xpath('//*[@id="movies"]/a['+movie_code+']/span[2]').click()
+title = driver.find_element_by_xpath('//*[@id="movies"]/a['+movie_code+']/span[2]').text
 
-if movieFound == 0 :
-    print("\n\n\nthe movie you want is not found ... \n")
-    time.sleep(1)
-    driver.close()
-    os.startfile(sys.argv[0])
-    sys.exit()
-    
 time.sleep(1)
-
 
 #switching to the popup url 
 for handle in driver.window_handles: 
