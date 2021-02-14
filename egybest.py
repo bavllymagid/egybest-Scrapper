@@ -9,6 +9,8 @@ import requests
 
 # input from user 
 input_search = input("movie: ")
+
+
 URL = "https://cola.egybest.guru/explore/?q="+input_search+""
 
 print("\n=========Searching for movie===========")
@@ -46,13 +48,20 @@ if number_of_movies == 0 :
     sys.exit()
 
 #searching algorithm 
-print("\n\n===========Available movies============\n")
+found = 0
 for num in range(1,number_of_movies) :
     movies = driver.find_element_by_xpath('//*[@id="movies"]/a['+str(num)+']/span[2]')
     if input_search.lower() in movies.text.lower():
+        if num == 1:
+            print("\n\n===========Available movies============\n")
         found = 1 
         print(" "+str(num)+" : "+movies.text)
 
+
+if found == 0 :
+    print("\n===========can't find the movie you want============\n")
+    driver.close()
+    sys.exit()
 
 #getting movie page 
 movie_code = input("Enter movie code : ")
