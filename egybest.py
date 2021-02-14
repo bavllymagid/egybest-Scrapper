@@ -40,12 +40,20 @@ parent_h = driver.current_window_handle
 movies =driver.find_elements_by_xpath('//*[@id="movies"]/a')
 number_of_movies = len(driver.find_elements_by_xpath('//*[@id="movies"]/a')) 
 
+if number_of_movies == 0 :
+    driver.close()
+    print("can't found the movie you want\n")
+    sys.exit()
+
 #searching algorithm 
 print("\n\n===========Available movies============\n")
-for num in range(1,12) :
+for num in range(1,number_of_movies) :
     movies = driver.find_element_by_xpath('//*[@id="movies"]/a['+str(num)+']/span[2]')
     if input_search.lower() in movies.text.lower():
+        found = 1 
         print(" "+str(num)+" : "+movies.text)
+
+
 #getting movie page 
 movie_code = input("Enter movie code : ")
 selected_move = driver.find_element_by_xpath('//*[@id="movies"]/a['+movie_code+']/span[2]').click()
