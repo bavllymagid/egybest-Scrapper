@@ -50,7 +50,6 @@ print("\n\n===========Available movies============\n")
 for num in range(1,number_of_movies) :
     movies = driver.find_element_by_xpath('//*[@id="movies"]/a['+str(num)+']/span[2]')
     if input_search.lower() in movies.text.lower():
-        found = 1 
         print(" "+str(num)+" : "+movies.text)
 
 
