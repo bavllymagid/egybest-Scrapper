@@ -11,7 +11,7 @@ import requests
 input_search = input("movie: ")
 
 
-URL = "https://cola.egybest.guru/explore/?q="+input_search+""
+URL = "https://race.egybest.world/explore/?q="+input_search+""
 
 print("\n=========Searching for movie===========")
 
